@@ -1,0 +1,15 @@
+Module
+  name: kilouco_bot
+  description: Bot Addon
+  author: Alexandre Severino (kilouco)
+  website: --
+
+  autoload: true
+  autoload-priority: 1000
+
+  @onLoad: |
+    dofile 'bot'
+    Bot.init()
+
+  @onUnload: |
+    Bot.terminate()

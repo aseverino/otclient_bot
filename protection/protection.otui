@@ -1,0 +1,153 @@
+Panel
+
+  BotOptionCheckBox
+    id: AutoHeal
+    text: Auto Heal
+    tooltip: Heal your character automatically
+
+  Label
+    id: HealthSpellLabel
+    width: 100
+    text: Spell Text
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 10
+
+  BotOptionLineEdit
+    id: HealSpellText
+    anchors.left: HealthSpellLabel.left
+    anchors.right: HealthSpellLabel.right
+    anchors.top: HealthSpellLabel.bottom
+    margin-top: 2
+
+  Label
+    id: HealthLabel
+    text: On health lower than
+    anchors.left: HealthSpellLabel.right
+    anchors.top: HealthSpellLabel.top
+    margin-left: 18
+
+  BotOptionLineEdit
+    id: HealthText
+    anchors.left: HealthLabel.left
+    anchors.right: HealthLabel.right
+    anchors.top: HealthLabel.bottom
+    margin-top: 2
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+
+  BotOptionCheckBox
+    id: AutoHealthItem
+    text: Health Item
+    tooltip: Automatically use health items/potions on self
+
+  Item
+    id: CurrentHealthItem
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 10
+    virtual: true
+
+  Button
+    id: SelectHealthItem
+    !text: tr('Select\nitem')
+    width: 64
+    height: 34
+    anchors.left: prev.right
+    anchors.top: prev.top
+    margin-left: 10
+    @onClick: Bot.startChooseHealthItem()
+
+  Label
+    id: ItemHealthLabel
+    text: On health lower than
+    anchors.top: CurrentHealthItem.top
+    anchors.right: HealthLabel.right
+
+  BotOptionLineEdit
+    id: ItemHealthText
+    anchors.left: ItemHealthLabel.left
+    anchors.right: ItemHealthLabel.right
+    anchors.top: ItemHealthLabel.bottom
+    margin-top: 2
+
+  BotOptionCheckBox
+    id: AutoManaItem
+    text: Mana Item
+    tooltip: Automatically use mana items/potions on self
+
+  Item
+    id: CurrentManaItem
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 10
+    virtual: true
+
+  Button
+    id: SelectManaItem
+    !text: tr('Select\nitem')
+    width: 64
+    height: 34
+    anchors.left: prev.right
+    anchors.top: prev.top
+    margin-left: 10
+    @onClick: Bot.startChooseManaItem()
+
+  Label
+    id: ItemManaLabel
+    text: On mana lower than
+    anchors.top: CurrentManaItem.top
+    anchors.left: ItemHealthText.left
+
+  BotOptionLineEdit
+    id: ItemManaText
+    anchors.left: ItemManaLabel.left
+    anchors.right: ItemHealthLabel.right
+    anchors.top: ItemManaLabel.bottom
+    margin-top: 2
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+
+  BotOptionCheckBox
+    id: AutoHaste
+    text: Auto Haste
+    tooltip: Haste your character automatically
+
+  Label
+    id: HasteSpellLabel
+    width: 100
+    text: Spell Text
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 20
+
+  BotOptionLineEdit
+    id: HasteSpellText
+    anchors.left: HasteSpellLabel.left
+    anchors.right: HasteSpellLabel.right
+    anchors.top: HasteSpellLabel.bottom
+    margin-top: 2
+
+  Label
+    id: HasteLabel
+    !text: tr('DO NOT haste when\nhealth lower than')
+    anchors.left: HasteSpellLabel.right
+    anchors.top: HasteSpellLabel.top
+    margin-left: 18
+    height: 30
+    margin-top: -16
+
+  BotOptionLineEdit
+    id: HasteText
+    anchors.left: HasteLabel.left
+    anchors.right: HasteLabel.right
+    anchors.top: HasteLabel.bottom
+    margin-top: 2

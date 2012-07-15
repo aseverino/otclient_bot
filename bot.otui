@@ -1,0 +1,47 @@
+BotOptionLineEdit < TextEdit
+  @onTextChange: Bot.changeOption(self:getId(), self:getText())
+
+BotOptionCheckBox < CheckBox
+  @onCheckChange: Bot.changeOption(self:getId(), self:isChecked())
+
+  $first:
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: parent.top
+
+  $middle:
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 2
+
+MainWindow
+  id: botWindow
+  !text: tr('Kilouco\'s Bot')
+  size: 286 500
+  
+  @onEnter: Bot.hide()
+  @onEscape: Bot.hide()
+
+  &save: true
+
+  TabBar
+    id: botTabBar
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+  Panel
+    id: botTabContent
+    anchors.top: botTabBar.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-top: 10
+
+  Button
+    text: Hide
+    width: 64
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: Bot.hide()
