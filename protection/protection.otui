@@ -143,6 +143,7 @@ Panel
     anchors.top: HasteSpellLabel.top
     margin-left: 18
     height: 30
+    width: 120
     margin-top: -16
 
   BotOptionLineEdit
@@ -151,3 +152,35 @@ Panel
     anchors.right: HasteLabel.right
     anchors.top: HasteLabel.bottom
     margin-top: 2
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+  
+  BotOptionCheckBox
+    id: AutoParalyzeHeal
+    text: Auto Paralyze Heal
+    tooltip: Automatically heal when paralized.
+
+  BotOptionLineEdit
+    id: ParalyzeHealText
+    anchors.right: HasteLabel.right
+    anchors.top: AutoParalyzeHeal.top
+    width: 100
+    tooltip: Spell to use when paralyzed.
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+  
+  BotOptionCheckBox
+    id: AutoManaShield
+    text: Auto Magic Shield
+    tooltip: Automatically keeps character magic shielded.
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom

@@ -13,7 +13,12 @@ options = {
 
   ['AutoHaste'] = false,
   ['HasteSpellText'] = 'utani hur',
-  ['HasteText'] = '50%'
+  ['HasteText'] = '50%',
+
+  ['AutoParalyzeHeal'] = false,
+  ['ParalyzeHealText'] = 'utani hur',
+
+  ['AutoManaShield'] = false
 }
 
 runes = {
