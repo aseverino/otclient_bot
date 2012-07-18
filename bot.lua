@@ -8,9 +8,12 @@ local botWindow
 local botButton
 
 local botTabBar
+
 local pnProtection
+local pnAfk
 
 local ProtectionModule
+local AfkModule
 
 function Bot.init()
   botWindow = g_ui.displayUI('bot.otui')
@@ -32,8 +35,12 @@ function Bot.init()
   botTabBar:setContentWidget(botWindow:getChildById('botTabContent'))
 
   ProtectionModule = dofile('protection/protection.lua')
-  pnProtection = ProtectionModule.init()
+  pnProtection = ProtectionModule.init(Bot)
   botTabBar:addTab(tr('Protection'), pnProtection)
+
+  AfkModule = dofile('afk/afk.lua')
+  pnAfk = AfkModule.init(Bot)
+  botTabBar:addTab(tr('AFK'), pnAfk)
 end
 
 function Bot.terminate()
@@ -46,12 +53,13 @@ function Bot.terminate()
 
   g_keyboard.unbindKeyDown('Ctrl+Shift+B')
 
+  ProtectionModule.terminate()
+  AfkModule.terminate()
+
   botWindow:destroy()
   botButton:destroy()
   botWindow = nil
   botButton = nil
-
-  ProtectionModule.terminate()
 
   g_settings.setNode('Bot', Bot.options)
 end
@@ -89,6 +97,14 @@ function Bot.hide()
   botWindow:hide()
 end
 
+function Bot.getUi()
+  return botWindow
+end
+
+function Bot.getParent()
+  return botWindow:getParent()
+end
+
 function Bot.changeOption(key, status, loading)
   loading = loading or false
 
@@ -99,6 +115,7 @@ function Bot.changeOption(key, status, loading)
 
   if g_game.isOnline() then
     ProtectionModule.setEvents(key, status, Loading)
+    AfkModule.setEvents(key, status, Loading)
 
     -- g_game.talk(key)
 
@@ -108,6 +125,8 @@ function Bot.changeOption(key, status, loading)
 
       if pnProtection:getChildById(key) ~= nil then
         tab = pnProtection
+      elseif pnAfk:getChildById(key) ~= nil then
+        tab = pnAfk
       else
         tab = nil
       end

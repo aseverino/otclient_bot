@@ -1,11 +1,6 @@
-ProtectionModule = {}
+AfkModule = {}
 
-local Panel = {
-  CurrentHealthItem,
-  SelectHealthItem,
-  CurrentManaItem,
-  SelectManaItem
-}
+local Panel = {}
 
 local Events = {
   autoHealEvent,
@@ -17,87 +12,39 @@ local Events = {
 
 local parent
 
-function ProtectionModule.init(_parent)
+local uiCreatureList
+
+local CreatureListModule
+
+function AfkModule.init(_parent)
   parent = _parent
-  Panel = g_ui.loadUI('protection.otui')
+  Panel = g_ui.loadUI('afk.otui')
 
-  Panel.CurrentHealthItem = Panel:getChildById('CurrentHealthItem')
-  Panel.SelectHealthItem = Panel:getChildById('SelectHealthItem')
-
-  Panel.CurrentManaItem = Panel:getChildById('CurrentManaItem')
-  Panel.SelectManaItem = Panel:getChildById('SelectManaItem')
+  CreatureListModule = dofile('creatureList.lua')
+  uiCreatureList = CreatureListModule.init(parent)
 
   return Panel
 end
 
-function ProtectionModule.terminate()
+function AfkModule.terminate()
+  CreatureListModule.terminate()
+
   Panel:destroy()
   Panel = nil
 end
 
-function ProtectionModule.setEvents(key, status, loading)
-  if key == 'AutoHeal' then
-    removeEvent(Events.autoHealEvent)
-    if status then
-      Events.autoHealEvent = addEvent(ProtectionModule.autoHeal)
-    end
-  elseif key == 'AutoHealthItem' then
-    removeEvent(Events.autoHealthItemEvent)
-    if status then
-      Events.autoHealthItemEvent = addEvent(ProtectionModule.autoHealthItem)
-    end
-  elseif key == 'AutoManaItem' then
-    removeEvent(Events.autoManaItemEvent)
-    if status then
-      Events.autoManaItemEvent = addEvent(ProtectionModule.autoManaItem)
-    end
-  elseif key == 'AutoHaste' then
-    removeEvent(Events.autoHasteEvent)
-    if status then
-      Events.autoHasteEvent = addEvent(ProtectionModule.autoHaste)
-    end
-  elseif key == 'AutoParalyzeHeal' then
-    removeEvent(Events.autoParalyzeHealEvent)
-    if status then
-      Events.autoParalyzeHealEvent = addEvent(ProtectionModule.autoParalyzeHeal)
-    end
-  elseif key == 'AutoManaShield' then
-    removeEvent(Events.autoManaShieldEvent)
-    if status then
-      Events.autoManaShieldEvent = addEvent(ProtectionModule.autoManaShield)
-    end
-  end
+function AfkModule.setEvents(key, status, loading)
+  
 end
 
-function ProtectionModule.autoHeal()
+function AfkModule.creatureListDialog()
   if g_game.isOnline() then
-
-    local spellText = Panel:getChildById('HealSpellText'):getText()
-    local healthText = Panel:getChildById('HealthText'):getText():match('(%d+)%%')
-    local percent = healthText and true or false
-    local healthText = healthText or tonumber(Panel:getChildById('HealthText'):getText())
-    
-    if healthText ~= nil then
-      if percent then
-        if (g_game.getLocalPlayer():getHealth()/g_game.getLocalPlayer():getMaxHealth())*100 < tonumber(healthText) then
-          g_game.talk(spellText)
-        end
-      else
-        if g_game.getLocalPlayer():getHealth() < healthText then
-          g_game.talk(spellText)
-        end
-      end
-
-      Events.autoHealEvent = scheduleEvent(ProtectionModule.autoHeal, 100)
-    else
-      Panel:getChildById('AutoHeal'):setChecked(false)
-    end
-  else
-    Events.autoHealEvent = scheduleEvent(ProtectionModule.autoHeal, 100)
+    CreatureListModule:toggle()
+    CreatureListModule:focus()
   end
 end
 
-function ProtectionModule.autoHealthItem()
+function AfkModule.autoHealthItem()
   if g_game.isOnline() then
 
       local item = Panel:getChildById('CurrentHealthItem'):getItem()
@@ -119,16 +66,16 @@ function ProtectionModule.autoHealthItem()
         end
       end
     
-      Events.autoHealthItemEvent = scheduleEvent(ProtectionModule.autoHealthItem, 100)
+      Events.autoHealthItemEvent = scheduleEvent(AfkModule.autoHealthItem, 100)
     else
       Panel:getChildById('AutoHealthItem'):setChecked(false)
     end
   else
-    Events.autoHealthItemEvent = scheduleEvent(ProtectionModule.autoHealthItem, 100)
+    Events.autoHealthItemEvent = scheduleEvent(AfkModule.autoHealthItem, 100)
   end
 end
 
-function ProtectionModule.autoManaItem()
+function AfkModule.autoManaItem()
   if g_game.isOnline() then
 
       local item = Panel:getChildById('CurrentManaItem'):getItem()
@@ -150,29 +97,29 @@ function ProtectionModule.autoManaItem()
         end
       end
       
-      Events.autoHealthItemEvent = scheduleEvent(ProtectionModule.autoManaItem, 100)
+      Events.autoHealthItemEvent = scheduleEvent(AfkModule.autoManaItem, 100)
     else
       Panel:getChildById('AutoManaItem'):setChecked(false)
     end
   else
-    Events.autoHealthItemEvent = scheduleEvent(ProtectionModule.autoManaItem, 100)
+    Events.autoHealthItemEvent = scheduleEvent(AfkModule.autoManaItem, 100)
   end
 end
 
-function ProtectionModule.startChooseHealthItem()
+function AfkModule.startChooseHealthItem()
   local mouseGrabberWidget = g_ui.createWidget('UIWidget')
   mouseGrabberWidget:setVisible(false)
   mouseGrabberWidget:setFocusable(false)
 
-  connect(mouseGrabberWidget, { onMouseRelease = ProtectionModule.onChooseHealthItemMouseRelease })
+  connect(mouseGrabberWidget, { onMouseRelease = AfkModule.onChooseHealthItemMouseRelease })
   
   mouseGrabberWidget:grabMouse()
   g_mouse.setTargetCursor()
 
-  parent.hide()
+  hide()
 end
 
-function ProtectionModule.onChooseHealthItemMouseRelease(self, mousePosition, mouseButton)
+function AfkModule.onChooseHealthItemMouseRelease(self, mousePosition, mouseButton)
   local item = nil
   
   if mouseButton == MouseLeftButton then
@@ -197,9 +144,9 @@ function ProtectionModule.onChooseHealthItemMouseRelease(self, mousePosition, mo
   end
 
   if item then
-    Panel.CurrentHealthItem:setItemId(item:getId())
-    parent.changeOption('CurrentHealthItem', item:getId())
-    parent.show()
+    CurrentHealthItem:setItemId(item:getId())
+    changeOption('CurrentHealthItem', item:getId())
+    show()
   end
 
   g_mouse.restoreCursor()
@@ -207,20 +154,20 @@ function ProtectionModule.onChooseHealthItemMouseRelease(self, mousePosition, mo
   self:destroy()
 end
 
-function ProtectionModule.startChooseManaItem()
+function AfkModule.startChooseManaItem()
   local mouseGrabberWidget = g_ui.createWidget('UIWidget')
   mouseGrabberWidget:setVisible(false)
   mouseGrabberWidget:setFocusable(false)
 
-  connect(mouseGrabberWidget, { onMouseRelease = ProtectionModule.onChooseManaItemMouseRelease })
+  connect(mouseGrabberWidget, { onMouseRelease = AfkModule.onChooseManaItemMouseRelease })
   
   mouseGrabberWidget:grabMouse()
   g_mouse.setTargetCursor()
 
-  parent.hide()
+  hide()
 end
 
-function ProtectionModule.onChooseManaItemMouseRelease(self, mousePosition, mouseButton)
+function AfkModule.onChooseManaItemMouseRelease(self, mousePosition, mouseButton)
   local item = nil
   
   if mouseButton == MouseLeftButton then
@@ -245,9 +192,9 @@ function ProtectionModule.onChooseManaItemMouseRelease(self, mousePosition, mous
   end
 
   if item then
-    Panel.CurrentManaItem:setItemId(item:getId())
-    parent.changeOption('CurrentManaItem', item:getId())
-    parent.show()
+    CurrentHealthItem:setItemId(item:getId())
+    changeOption('CurrentManaItem', item:getId())
+    show()
   end
 
   g_mouse.restoreCursor()
@@ -255,7 +202,7 @@ function ProtectionModule.onChooseManaItemMouseRelease(self, mousePosition, mous
   self:destroy()
 end
 
-function ProtectionModule.autoHaste()
+function AfkModule.autoHaste()
   if g_game.isOnline() then
 
     local spellText = Panel:getChildById('HasteSpellText'):getText()
@@ -266,47 +213,47 @@ function ProtectionModule.autoHaste()
     if hasteText ~= nil then
       if percent then
         if (g_game.getLocalPlayer():getHealth()/g_game.getLocalPlayer():getMaxHealth())*100 < tonumber(hasteText) then
-          Events.autoHasteEvent = scheduleEvent(ProtectionModule.autoHaste, 100)
+          Events.autoHasteEvent = scheduleEvent(AfkModule.autoHaste, 100)
           return
         end
       else
         if g_game.getLocalPlayer():getHealth() < hasteText then
-          Events.autoHasteEvent = scheduleEvent(ProtectionModule.autoHaste, 100)
+          Events.autoHasteEvent = scheduleEvent(AfkModule.autoHaste, 100)
           return
         end
       end
     end
 
-    if not ProtectionModule.hasState(64) then
+    if not AfkModule.hasState(64) then
       g_game.talk(spellText)
     end
   end
 
-  Events.autoHasteEvent = scheduleEvent(ProtectionModule.autoHaste, 100)
+  Events.autoHasteEvent = scheduleEvent(AfkModule.autoHaste, 100)
 end
 
-function ProtectionModule.autoParalyzeHeal()
+function AfkModule.autoParalyzeHeal()
   if g_game.isOnline() then
 
     local spellText = Panel:getChildById('ParalyzeHealText'):getText()
     
-    if ProtectionModule.hasState(32) then
+    if AfkModule.hasState(32) then
       g_game.talk(spellText)
     end
   end
   
-  Events.autoParalyzeHealEvent = scheduleEvent(ProtectionModule.autoParalyzeHeal, 100)
+  Events.autoParalyzeHealEvent = scheduleEvent(AfkModule.autoParalyzeHeal, 100)
 end
 
-function ProtectionModule.autoManaShield()
-  if g_game.isOnline() and not ProtectionModule.hasState(16) then
+function AfkModule.autoManaShield()
+  if g_game.isOnline() and not AfkModule.hasState(16) then
     g_game.talk('utamo vita')
   end
 
-  Events.autoParalyzeHealEvent = scheduleEvent(ProtectionModule.autoParalyzeHeal, 100)
+  Events.autoParalyzeHealEvent = scheduleEvent(AfkModule.autoParalyzeHeal, 100)
 end
 
-function ProtectionModule.hasState(_state)
+function AfkModule.hasState(_state)
 
   local localPlayer = g_game.getLocalPlayer()
   local states = localPlayer:getStates()
@@ -324,6 +271,6 @@ function ProtectionModule.hasState(_state)
   return false
 end
 
-return ProtectionModule
+return AfkModule
 
 --g_game.talk(spellText)

@@ -1,0 +1,10 @@
+
+MainWindow
+  id: creatureList
+  !text: tr('Creature Lists')
+  size: 300 400
+  
+  @onEnter: CreatureList.hide()
+  @onEscape: CreatureList.hide()
+
+  &save: true

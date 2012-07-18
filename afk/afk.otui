@@ -1,0 +1,15 @@
+Panel
+
+  BotOptionCheckBox
+    id: CreatureAlert
+    text: Alert on creature appearance
+    tooltip: Play a sound alert when a creature appears
+
+  Button
+    id: CreatureAlertList
+    width: 100
+    text: Creature List
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 10
+    @onClick: AfkModule.creatureListDialog()

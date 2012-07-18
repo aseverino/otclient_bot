@@ -60,7 +60,7 @@ Panel
     anchors.left: prev.right
     anchors.top: prev.top
     margin-left: 10
-    @onClick: Bot.startChooseHealthItem()
+    @onClick: ProtectionModule.startChooseHealthItem()
 
   Label
     id: ItemHealthLabel
@@ -95,7 +95,7 @@ Panel
     anchors.left: prev.right
     anchors.top: prev.top
     margin-left: 10
-    @onClick: Bot.startChooseManaItem()
+    @onClick: ProtectionModule.startChooseManaItem()
 
   Label
     id: ItemManaLabel
