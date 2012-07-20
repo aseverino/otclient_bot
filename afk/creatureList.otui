@@ -136,3 +136,27 @@ MainWindow
     anchors.top: AddBlack.bottom
     margin-top: 25
     @onClick: CreatureList.addWhite()
+
+  CheckBox
+    id: UseBlackList
+    text: Alert for black-listed creatures.
+    tooltip: Will alert only when black-listed creatures enter on your screen.
+    anchors.left: Text1Label.left
+    anchors.top: AddWhite.bottom
+    width: 200
+    margin-left: 5
+    margin-top: 20
+    @onCheckChange: CreatureList.checkBlack(self:isChecked())
+
+  CheckBox
+    id: UseWhiteList
+    !text: tr('Alert for non white-listed\ncreatures.')
+    tooltip: Will alert whenever a creature which is not on the white list appears.
+    anchors.left: Text1Label.left
+    anchors.top: UseBlackList.bottom
+    width: 200
+    height: 30
+    margin-left: 5
+    margin-top: 5
+    @onCheckChange: CreatureList.checkWhite(self:isChecked())
+

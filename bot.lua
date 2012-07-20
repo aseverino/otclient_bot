@@ -22,15 +22,6 @@ function Bot.init()
   botButton = TopMenu.addGameButton('botButton', 'Bot (Ctrl+Shift+B)', '/kilouco_bot/bot.png', Bot.toggle)
   g_keyboard.bindKeyDown('Ctrl+Shift+B', Bot.toggle)
 
-  connect(g_game, { onGameStart = Bot.online,
-    onGameEnd = Bot.offline})
-
-  Bot.options = g_settings.getNode('Bot') or {}
-  
-  if g_game.isOnline() then
-    Bot.online()
-  end
-
   botTabBar = botWindow:getChildById('botTabBar')
   botTabBar:setContentWidget(botWindow:getChildById('botTabContent'))
 
@@ -41,6 +32,15 @@ function Bot.init()
   AfkModule = dofile('afk/afk.lua')
   pnAfk = AfkModule.init(Bot)
   botTabBar:addTab(tr('AFK'), pnAfk)
+
+  connect(g_game, { onGameStart = Bot.online,
+    onGameEnd = Bot.offline})
+
+  Bot.options = g_settings.getNode('Bot') or {}
+  
+  if g_game.isOnline() then
+    Bot.online()
+  end
 end
 
 function Bot.terminate()
@@ -107,7 +107,7 @@ end
 
 function Bot.changeOption(key, status, loading)
   loading = loading or false
-
+  
   if Bot.defaultOptions[key] == nil then
     Bot.options[key] = nil
     return
@@ -116,8 +116,6 @@ function Bot.changeOption(key, status, loading)
   if g_game.isOnline() then
     ProtectionModule.setEvents(key, status, Loading)
     AfkModule.setEvents(key, status, Loading)
-
-    -- g_game.talk(key)
 
     local tab
 
@@ -139,6 +137,8 @@ function Bot.changeOption(key, status, loading)
 
       local style = widget:getStyle().__class
       
+      -- g_game.talk(style)
+
       if style == 'UITextEdit' or style == 'UIComboBox' then
         tab:getChildById(key):setText(status)
       elseif style == 'UICheckBox' then

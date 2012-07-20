@@ -4,14 +4,17 @@ Panel
     id: AutoHeal
     text: Auto Heal
     tooltip: Heal your character automatically
+    anchors.left: parent.left
+    anchors.top: parent.top
+    width: 60
 
   Label
     id: HealthSpellLabel
     width: 100
     text: Spell Text
-    anchors.left: parent.left
+    anchors.left: prev.left
     anchors.top: prev.bottom
-    margin-top: 10
+    margin-top: 5
 
   BotOptionLineEdit
     id: HealSpellText
@@ -44,12 +47,16 @@ Panel
     id: AutoHealthItem
     text: Health Item
     tooltip: Automatically use health items/potions on self
+    anchors.left: AutoHeal.left
+    anchors.top: prev.bottom
+    width: 70
+    margin-top: 10
 
   Item
     id: CurrentHealthItem
     anchors.left: parent.left
     anchors.top: prev.bottom
-    margin-top: 10
+    margin-top: 5
     virtual: true
 
   Button
@@ -79,12 +86,16 @@ Panel
     id: AutoManaItem
     text: Mana Item
     tooltip: Automatically use mana items/potions on self
+    anchors.left: AutoHeal.left
+    anchors.top: prev.bottom
+    width: 65
+    margin-top: 10
 
   Item
     id: CurrentManaItem
     anchors.left: parent.left
     anchors.top: prev.bottom
-    margin-top: 10
+    margin-top: 5
     virtual: true
 
   Button
@@ -120,6 +131,10 @@ Panel
     id: AutoHaste
     text: Auto Haste
     tooltip: Haste your character automatically
+    anchors.left: AutoHeal.left
+    anchors.top: prev.bottom
+    width: 65
+    margin-top: 10
 
   Label
     id: HasteSpellLabel
@@ -152,7 +167,7 @@ Panel
     anchors.right: HasteLabel.right
     anchors.top: HasteLabel.bottom
     margin-top: 2
-
+    
   HorizontalSeparator
     anchors.left: parent.left
     anchors.right: parent.right
@@ -163,6 +178,10 @@ Panel
     id: AutoParalyzeHeal
     text: Auto Paralyze Heal
     tooltip: Automatically heal when paralized.
+    anchors.left: AutoHeal.left
+    anchors.top: prev.bottom
+    width: 120
+    margin-top: 10
 
   BotOptionLineEdit
     id: ParalyzeHealText
@@ -184,3 +203,4 @@ Panel
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.top: prev.bottom
+    margin-top: 10 

@@ -4,16 +4,8 @@ BotOptionLineEdit < TextEdit
 BotOptionCheckBox < CheckBox
   @onCheckChange: Bot.changeOption(self:getId(), self:isChecked())
 
-  $first:
-    anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.top: parent.top
-
-  $middle:
-    anchors.left: parent.left
-    anchors.right: parent.right
-    anchors.top: prev.bottom
-    margin-top: 2
+BotOptionTextList < TextList
+  @onCheckChange: Bot.changeOption(self:getId(), self:isChecked())
 
 MainWindow
   id: botWindow

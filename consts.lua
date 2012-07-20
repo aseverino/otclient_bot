@@ -18,7 +18,10 @@ options = {
   ['AutoParalyzeHeal'] = false,
   ['ParalyzeHealText'] = 'utani hur',
 
-  ['AutoManaShield'] = false
+  ['AutoManaShield'] = false,
+  ['CreatureAlert'] = false,
+  ['BlackList'] = '',
+  ['WhiteList'] = ''
 }
 
 runes = {

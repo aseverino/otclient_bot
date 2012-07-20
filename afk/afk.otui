@@ -4,6 +4,9 @@ Panel
     id: CreatureAlert
     text: Alert on creature appearance
     tooltip: Play a sound alert when a creature appears
+    anchors.left: parent.left
+    anchors.top: parent.top
+    width: 180
 
   Button
     id: CreatureAlertList
