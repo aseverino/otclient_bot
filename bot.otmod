@@ -2,7 +2,7 @@ Module
   name: kilouco_bot
   description: Bot Addon
   author: Alexandre Severino (kilouco)
-  website: --
+  website: https://github.com/kilouco/otclient_bot
 
   autoload: true
   autoload-priority: 1000
