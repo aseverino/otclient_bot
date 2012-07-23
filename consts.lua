@@ -21,15 +21,13 @@ options = {
   ['AutoManaShield'] = false,
   ['CreatureAlert'] = false,
   ['BlackList'] = '',
-  ['WhiteList'] = ''
-}
+  ['WhiteList'] = '',
 
-runes = {
-  ['SD'] = 3155,
-  ['GFB'] = 3191,
-  ['Avalanche'] = 3161,
-  ['Explosion'] = 3200,
-  ['HMM'] = 3198
+  ['AutoEat'] = false,
+  ['AutoEatSelect'] = '',
+
+  ['AntiKick'] = false,
+  ['AutoFishing'] = false
 }
 
 potions = {
@@ -109,3 +107,10 @@ spears = {
   ['Throwing Star'] = 3287,
   ['Assassin Star'] = 7368
 }
+
+fishing = {
+  ['fishing rod'] = 3483,
+  ['worm'] = 3492
+}
+
+water = { 4599 }

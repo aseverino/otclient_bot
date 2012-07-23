@@ -19,7 +19,7 @@ function Bot.init()
   botWindow = g_ui.displayUI('bot.otui')
   botWindow:setVisible(false)
 
-  botButton = TopMenu.addGameButton('botButton', 'Bot (Ctrl+Shift+B)', '/kilouco_bot/bot.png', Bot.toggle)
+  botButton = TopMenu.addRightGameToggleButton('botButton', 'Bot (Ctrl+Shift+B)', '/kilouco_bot/bot.png', Bot.toggle)
   g_keyboard.bindKeyDown('Ctrl+Shift+B', Bot.toggle)
 
   botTabBar = botWindow:getChildById('botTabBar')
@@ -44,6 +44,7 @@ function Bot.init()
 end
 
 function Bot.terminate()
+  Bot.hide()
   disconnect(g_game, { onGameStart = Bot.online,
   onGameEnd = Bot.offline})
 
@@ -56,12 +57,12 @@ function Bot.terminate()
   ProtectionModule.terminate()
   AfkModule.terminate()
 
-  botWindow:destroy()
   botButton:destroy()
-  botWindow = nil
   botButton = nil
 
   g_settings.setNode('Bot', Bot.options)
+
+  -- botWindow:destroy() -- was destroying twice (gotta take a look at this).
 end
 
 function Bot.online()
@@ -69,12 +70,8 @@ function Bot.online()
 end
 
 function Bot.offline()
-  removeEvent(autoHealEvent)
-  removeEvent(autoHealthItemEvent)
-  removeEvent(autoManaItemEvent)
-  removeEvent(autoHasteEvent)
-  removeEvent(autoParalyzeHealEvent)
-  removeEvent(autoManaShieldEvent)
+  ProtectionModule.removeEvents()
+  AfkModule.removeEvents()
   -- do not remove autoReconnectEvent since it must be running even on offline state
 end
 
@@ -125,8 +122,8 @@ function Bot.changeOption(key, status, loading)
         tab = pnProtection
       elseif pnAfk:getChildById(key) ~= nil then
         tab = pnAfk
-      else
-        tab = nil
+      elseif pnAfk.getCreatureListUI():getChildById(key) ~= nil then
+        tab = pnAfk.getCreatureListUI()
       end
 
       local widget = tab:getChildById(key)

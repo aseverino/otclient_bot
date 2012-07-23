@@ -3,14 +3,17 @@ AfkModule = {}
 local Panel = {}
 
 local Events = {
-  creatureAlertEvent
+  creatureAlertEvent,
+  autoEatEvent,
+  antiKickEvent,
+  autoFishingEvent
 }
 
 local parent
 
 local uiCreatureList
 
-local CreatureListModule
+local CreatureListModule = {}
 
 function AfkModule.init(_parent)
   parent = _parent
@@ -36,7 +39,29 @@ function AfkModule.setEvents(key, status, loading)
     if status then
       Events.creatureAlertEvent = addEvent(AfkModule.creatureAlert)
     end
+  elseif key == 'AutoEat' then
+    removeEvent(Events.autoEatEvent)
+    if status then
+      Events.autoEatEvent = addEvent(AfkModule.autoEat)
+    end
+  elseif key == 'AntiKick' then
+    removeEvent(Events.antiKickEvent)
+    if status then
+      Events.antiKickEvent = addEvent(AfkModule.antiKick)
+    end
+  elseif key == 'AutoFishing' then
+    removeEvent(Events.autoFishingEvent)
+    if status then
+      Events.autoFishingEvent = addEvent(AfkModule.autoFishing)
+    end   
   end
+end
+
+function AfkModule.removeEvents()
+  removeEvent(Events.creatureAlertEvent)
+  removeEvent(Events.autoEatEvent)
+  removeEvent(Events.antiKickEvent)
+  removeEvent(Events.autoFishingEvent)
 end
 
 function AfkModule.creatureAlert()
@@ -74,7 +99,80 @@ function AfkModule.creatureAlert()
     AfkModule.stopAlert()
   end
 
-  creatureAlertEvent = scheduleEvent(AfkModule.creatureAlert, 200)
+  Events.creatureAlertEvent = scheduleEvent(AfkModule.creatureAlert, 200)
+end
+
+function AfkModule.autoEat()
+  if g_game.isOnline() then
+    local food = foods[Panel:getChildById('AutoEatSelect'):getText()]
+    for i, container in pairs(g_game.getContainers()) do
+      for _i, item in pairs(container:getItems()) do
+        if item:getId() == food then
+          g_game.useInventoryItem(food)
+        end
+      end
+    end
+  end
+  Events.autoEatEvent = scheduleEvent(AfkModule.autoEat, 15000)
+end
+
+function AfkModule.antiKick()
+  if g_game.isOnline() then
+    local direction = g_game.getLocalPlayer():getDirection()
+    direction = direction + 1
+    if direction > 3 then
+      direction = 0
+    end
+
+    g_game.turn(direction)
+  end
+
+  Events.antiKickEvent = scheduleEvent(AfkModule.antiKick, 5000)
+end
+
+function AfkModule.autoFishing()
+  if g_game.isOnline() then
+    local player = g_game.getLocalPlayer()
+    local tiles = AfkModule.getTileArray()
+    local waterTiles = {}
+    local j = 1
+
+    for i = 1, 165 do
+      if tiles[i]:getThing():getId() == 4599 then
+        table.insert(waterTiles, j, tiles[i])
+        j = j + 1
+      end
+    end
+
+    rdm = math.random(1, #waterTiles)
+
+    g_game.useInventoryItemWith(fishing['fishing rod'], waterTiles[rdm]:getThing())
+  end
+  Events.autoFishingEvent = scheduleEvent(AfkModule.autoFishing, 2000)
+end
+
+function AfkModule.getTileArray()
+  local tiles = {}
+
+  local player = g_game.getLocalPlayer()
+
+  if player == nil then
+    return nil
+  end
+
+  local firstTile = player:getPosition()
+  firstTile.x = firstTile.x - 7
+  firstTile.y = firstTile.y - 5
+
+  for i = 1, 165 do
+    local position = player:getPosition()
+    position.x = firstTile.x + (i % 15)
+    position.y = math.floor(firstTile.y + (i / 14))
+
+    tiles[i] = g_map.getTile(position)
+  end
+
+  return tiles
 end
 
 function AfkModule.alert()
@@ -91,6 +189,8 @@ function AfkModule.creatureListDialog()
     CreatureListModule:focus()
   end
 end
+
+function AfkModule.getCreatureListUI() return uiCreatureList end
 
 return AfkModule
 

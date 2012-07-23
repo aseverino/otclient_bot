@@ -26,9 +26,17 @@ MainWindow
     margin-bottom: 5
     padding: 1
     focusable: false
-    vertical-scrollbar: characterListScrollBar
+    vertical-scrollbar: BlackListScrollBar
     width: 150
     height: 300
+
+  VerticalScrollBar
+    id: BlackListScrollBar
+    anchors.top: BlackList.top
+    anchors.bottom: BlackList.bottom
+    anchors.right: BlackList.right
+    step: 14
+    pixels-scroll: true
 
   Label
     id: BlackListLabel
@@ -46,9 +54,17 @@ MainWindow
     margin-left: 20
     padding: 1
     focusable: false
-    vertical-scrollbar: characterListScrollBar
+    vertical-scrollbar: WhiteListScrollBar
     width: 150
     height: 300
+
+  VerticalScrollBar
+    id: WhiteListScrollBar
+    anchors.top: WhiteList.top
+    anchors.bottom: WhiteList.bottom
+    anchors.right: WhiteList.right
+    step: 14
+    pixels-scroll: true
 
   Label
     id: WhiteListLabel

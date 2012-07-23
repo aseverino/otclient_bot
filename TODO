@@ -1,0 +1,9 @@
+- Auto Rune Make
+- Magic Training
+- Skill Training
+  - Auto-stop attacking monster when it is low life
+  - Alert on player's low life
+- Auto Fish
+- Statistics
+- get Fishing Rod and worms from inventory slots
+- Change food eating to useInventoryItem

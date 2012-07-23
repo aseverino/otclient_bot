@@ -10,9 +10,12 @@ function CreatureList.init(_parent)
 
   creatureListWindow:setVisible(false)
   creatureListWindow:getChildById('UseBlackList'):setChecked(true)
+
+  return creatureListWindow
 end
 
 function CreatureList.terminate()
+  CreatureList.hide()
   creatureListWindow:destroy()
   creatureListWindow = nil
 end

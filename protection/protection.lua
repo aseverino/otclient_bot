@@ -69,6 +69,15 @@ function ProtectionModule.setEvents(key, status, loading)
   end
 end
 
+function ProtectionModule.removeEvents()
+  removeEvent(Events.autoHealEvent)
+  removeEvent(Events.autoHealthItemEvent)
+  removeEvent(Events.autoManaItemEvent)
+  removeEvent(Events.autoHasteEvent)
+  removeEvent(Events.autoParalyzeHealEvent)
+  removeEvent(Events.autoManaShieldEvent)
+end
+
 function ProtectionModule.autoHeal()
   if g_game.isOnline() then
 

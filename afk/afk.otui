@@ -16,3 +16,58 @@ Panel
     anchors.top: prev.bottom
     margin-top: 10
     @onClick: AfkModule.creatureListDialog()
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+
+  BotOptionCheckBox
+    id: AutoEat
+    text: Eat Food
+    tooltip: Eat food automatically.
+    anchors.left: CreatureAlert.left
+    anchors.top: prev.bottom
+    width: 180
+    margin-top: 10
+
+  ComboBox
+    id: AutoEatSelect
+    anchors.right: parent.right
+    anchors.top: AutoEat.top
+    width: 140
+    &option: g_settings.get('AutoEatSelect')
+    @onOptionChange: Bot.changeOption(self:getId(), self:getText())
+    options:
+      - Meat
+      - Fish
+      - Fire Mushroom
+      - Ham
+      - Dragon Ham
+      - Brown Bread
+      - Brown Mushroom
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+
+  BotOptionCheckBox
+    id: AntiKick
+    text: Anti-kick
+    tooltip: Character "dances" to avoid being kicked for being idle for too long.
+    anchors.left: CreatureAlert.left
+    anchors.top: prev.bottom
+    width: 180
+    margin-top: 10
+
+  BotOptionCheckBox
+    id: AutoFishing
+    text: Auto Fishing
+    tooltip: Players will be fishing as long as there are worms.
+    anchors.right: parent.right
+    anchors.top: prev.top
+    width: 90
+    
