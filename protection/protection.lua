@@ -7,18 +7,7 @@ local Panel = {
   SelectManaItem
 }
 
-local Events = {
-  autoHealEvent,
-  autoHealthItemEvent,
-  autoManaItemEvent,
-  autoHasteEvent,
-  autoParalyzeHealEvent
-}
-
-local parent
-
-function ProtectionModule.init(_parent)
-  parent = _parent
+function ProtectionModule.init()
   Panel = g_ui.loadUI('protection.otui')
 
   Panel.CurrentHealthItem = Panel:getChildById('CurrentHealthItem')
@@ -26,47 +15,13 @@ function ProtectionModule.init(_parent)
 
   Panel.CurrentManaItem = Panel:getChildById('CurrentManaItem')
   Panel.SelectManaItem = Panel:getChildById('SelectManaItem')
-
-  return Panel
 end
+
+function ProtectionModule.getPanel() return Panel end
 
 function ProtectionModule.terminate()
   Panel:destroy()
   Panel = nil
-end
-
-function ProtectionModule.setEvents(key, status, loading)
-  if key == 'AutoHeal' then
-    removeEvent(Events.autoHealEvent)
-    if status then
-      Events.autoHealEvent = addEvent(ProtectionModule.autoHeal)
-    end
-  elseif key == 'AutoHealthItem' then
-    removeEvent(Events.autoHealthItemEvent)
-    if status then
-      Events.autoHealthItemEvent = addEvent(ProtectionModule.autoHealthItem)
-    end
-  elseif key == 'AutoManaItem' then
-    removeEvent(Events.autoManaItemEvent)
-    if status then
-      Events.autoManaItemEvent = addEvent(ProtectionModule.autoManaItem)
-    end
-  elseif key == 'AutoHaste' then
-    removeEvent(Events.autoHasteEvent)
-    if status then
-      Events.autoHasteEvent = addEvent(ProtectionModule.autoHaste)
-    end
-  elseif key == 'AutoParalyzeHeal' then
-    removeEvent(Events.autoParalyzeHealEvent)
-    if status then
-      Events.autoParalyzeHealEvent = addEvent(ProtectionModule.autoParalyzeHeal)
-    end
-  elseif key == 'AutoManaShield' then
-    removeEvent(Events.autoManaShieldEvent)
-    if status then
-      Events.autoManaShieldEvent = addEvent(ProtectionModule.autoManaShield)
-    end
-  end
 end
 
 function ProtectionModule.removeEvents()
@@ -97,12 +52,12 @@ function ProtectionModule.autoHeal()
         end
       end
 
-      Events.autoHealEvent = scheduleEvent(ProtectionModule.autoHeal, 100)
+      -- Events.autoHealEvent = scheduleEvent(ProtectionModule.autoHeal, 100)
     else
       Panel:getChildById('AutoHeal'):setChecked(false)
     end
   else
-    Events.autoHealEvent = scheduleEvent(ProtectionModule.autoHeal, 100)
+    -- Events.autoHealEvent = scheduleEvent(ProtectionModule.autoHeal, 100)
   end
 end
 
@@ -178,7 +133,7 @@ function ProtectionModule.startChooseHealthItem()
   mouseGrabberWidget:grabMouse()
   g_mouse.setTargetCursor()
 
-  parent.hide()
+  Bot.hide()
 end
 
 function ProtectionModule.onChooseHealthItemMouseRelease(self, mousePosition, mouseButton)
@@ -207,8 +162,8 @@ function ProtectionModule.onChooseHealthItemMouseRelease(self, mousePosition, mo
 
   if item then
     Panel.CurrentHealthItem:setItemId(item:getId())
-    parent.changeOption('CurrentHealthItem', item:getId())
-    parent.show()
+    Bot.changeOption('CurrentHealthItem', item:getId())
+    Bot.show()
   end
 
   g_mouse.restoreCursor()
@@ -226,7 +181,7 @@ function ProtectionModule.startChooseManaItem()
   mouseGrabberWidget:grabMouse()
   g_mouse.setTargetCursor()
 
-  parent.hide()
+  Bot.hide()
 end
 
 function ProtectionModule.onChooseManaItemMouseRelease(self, mousePosition, mouseButton)
@@ -255,8 +210,8 @@ function ProtectionModule.onChooseManaItemMouseRelease(self, mousePosition, mous
 
   if item then
     Panel.CurrentManaItem:setItemId(item:getId())
-    parent.changeOption('CurrentManaItem', item:getId())
-    parent.show()
+    Events.changeOption('CurrentManaItem', item:getId())
+    Bot.show()
   end
 
   g_mouse.restoreCursor()

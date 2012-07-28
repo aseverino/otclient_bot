@@ -5,80 +5,27 @@ local Panel = {
   SelectReplaceItem
 }
 
-local Events = {
-  creatureAlertEvent,
-  autoEatEvent,
-  antiKickEvent,
-  autoFishingEvent,
-  runeMakeEvent,
-  autoReplaceWeaponEvent,
-  magicTrainEvent
-}
-
-local parent
-
 local uiCreatureList
 
-local CreatureListModule = {}
-
-function AfkModule.init(_parent)
-  parent = _parent
+function AfkModule.init()
   Panel = g_ui.loadUI('afk.otui')
   g_sounds.preload('alert.ogg')
 
-  CreatureListModule = dofile('creatureList.lua')
-  uiCreatureList = CreatureListModule.init(parent)
+  dofile('creatureList.lua')
+  CreatureList.init()
+  uiCreatureList = CreatureList.getPanel()
 
   Panel.ItemToReplace = Panel:getChildById('ItemToReplace')
   Panel.SelectReplaceItem = Panel:getChildById('SelectReplaceItem')
-
-  return Panel
 end
 
+function AfkModule.getPanel() return Panel end
+
 function AfkModule.terminate()
-  CreatureListModule.terminate()
+  CreatureList.terminate()
 
   Panel:destroy()
   Panel = nil
-end
-
-function AfkModule.setEvents(key, status, loading)
-  if key == 'CreatureAlert' then
-    removeEvent(Events.creatureAlertEvent)
-    if status then
-      Events.creatureAlertEvent = addEvent(AfkModule.creatureAlert)
-    end
-  elseif key == 'AutoEat' then
-    removeEvent(Events.autoEatEvent)
-    if status then
-      Events.autoEatEvent = addEvent(AfkModule.autoEat)
-    end
-  elseif key == 'AntiKick' then
-    removeEvent(Events.antiKickEvent)
-    if status then
-      Events.antiKickEvent = addEvent(AfkModule.antiKick)
-    end
-  elseif key == 'AutoFishing' then
-    removeEvent(Events.autoFishingEvent)
-    if status then
-      Events.autoFishingEvent = addEvent(AfkModule.autoFishing)
-    end
-  elseif key == 'RuneMake' then
-    removeEvent(Events.runeMakeEvent)
-    if status then
-      Events.runeMakeEvent = addEvent(AfkModule.runeMake)
-    end
-  elseif key == 'AutoReplaceWeapon' then
-    removeEvent(Events.autoReplaceWeaponEvent)
-    if status then
-      Events.autoReplaceWeaponEvent = addEvent(AfkModule.autoReplaceWeapon)
-    end
-  elseif key == 'MagicTrain' then
-    removeEvent(Events.magicTrainEvent)
-    if status then
-      Events.magicTrainEvent = addEvent(AfkModule.magicTrain)
-    end
-  end
 end
 
 function AfkModule.removeEvents()
@@ -92,8 +39,8 @@ function AfkModule.removeEvents()
 end
 
 function AfkModule.creatureAlert()
-  local blackList = CreatureListModule.getBlackList()
-  local whiteList = CreatureListModule.getWhiteList()
+  local blackList = CreatureList.getBlackList()
+  local whiteList = CreatureList.getWhiteList()
 
   local player = g_game.getLocalPlayer()
   local creatures = {}
@@ -106,15 +53,15 @@ function AfkModule.creatureAlert()
     return
   end
 
-  if CreatureListModule.getBlackOrWhite() then -- black
+  if CreatureList.getBlackOrWhite() then -- black
     for k, v in pairs (creatures) do
-      if v ~= player and CreatureListModule.isBlackListed(v:asCreature():getName()) then
+      if v ~= player and CreatureList.isBlackListed(v:asCreature():getName()) then
         alert = true
       end
     end
   else -- white
     for k, v in pairs (creatures) do
-      if v ~= player and not CreatureListModule.isWhiteListed(v:asCreature():getName()) then
+      if v ~= player and not CreatureList.isWhiteListed(v:asCreature():getName()) then
         alert = true
       end
     end
@@ -251,7 +198,7 @@ function AfkModule.startChooseReplaceItem()
   mouseGrabberWidget:grabMouse()
   g_mouse.setTargetCursor()
 
-  parent.hide()
+  Bot.hide()
 end
 
 function AfkModule.onChooseReplaceItemMouseRelease(self, mousePosition, mouseButton)
@@ -280,8 +227,8 @@ function AfkModule.onChooseReplaceItemMouseRelease(self, mousePosition, mouseBut
 
   if item then
     Panel.ItemToReplace:setItemId(item:getId())
-    parent.changeOption('ItemToReplace', item:getId())
-    parent.show()
+    Events.changeOption('ItemToReplace', item:getId())
+    Bot.show()
   end
 
   g_mouse.restoreCursor()
@@ -323,8 +270,8 @@ end
 
 function AfkModule.creatureListDialog()
   if g_game.isOnline() then
-    CreatureListModule:toggle()
-    CreatureListModule:focus()
+    CreatureList:toggle()
+    CreatureList:focus()
   end
 end
 
@@ -348,9 +295,6 @@ function AfkModule.getVisibleItem(itemid)
   t[1] = containerPtr
   return t
 end
-
-
-function AfkModule.getCreatureListUI() return uiCreatureList end
 
 return AfkModule
 

@@ -1,11 +1,11 @@
 BotOptionLineEdit < TextEdit
-  @onTextChange: Bot.changeOption(self:getId(), self:getText())
+  @onTextChange: Events.changeOption(self:getId(), self:getText())
 
 BotOptionCheckBox < CheckBox
-  @onCheckChange: Bot.changeOption(self:getId(), self:isChecked())
+  @onCheckChange: Events.changeOption(self:getId(), self:isChecked())
 
 BotOptionTextList < TextList
-  @onCheckChange: Bot.changeOption(self:getId(), self:isChecked())
+  @onCheckChange: Events.changeOption(self:getId(), self:isChecked())
 
 MainWindow
   id: botWindow

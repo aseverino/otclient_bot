@@ -2,17 +2,14 @@ CreatureList = extends(UIWidget)
 
 local creatureListWindow
 
-local parent
-
-function CreatureList.init(_parent)
-  parent = _parent
-  creatureListWindow = g_ui.loadUI('creatureList.otui', parent.getParent())
+function CreatureList.init()
+  creatureListWindow = g_ui.loadUI('creatureList.otui', Bot.getParent())
 
   creatureListWindow:setVisible(false)
   creatureListWindow:getChildById('UseBlackList'):setChecked(true)
-
-  return creatureListWindow
 end
+
+function CreatureList.getPanel() return creatureListWindow end
 
 function CreatureList.terminate()
   CreatureList.hide()
@@ -32,13 +29,13 @@ end
 function CreatureList.show()
   if g_game.isOnline() then
     creatureListWindow:show()
-    parent.getUi():setEnabled(false)
+    Bot.getUi():setEnabled(false)
   end
 end
 
 function CreatureList.hide()
   creatureListWindow:hide()
-  parent.getUi():setEnabled(true)
+  Bot.getUi():setEnabled(true)
 end
 
 function CreatureList.addBlack()
