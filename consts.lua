@@ -24,10 +24,21 @@ options = {
   ['WhiteList'] = '',
 
   ['AutoEat'] = false,
-  ['AutoEatSelect'] = '',
+  ['AutoEatSelect'] = 'Meat',
 
   ['AntiKick'] = false,
-  ['AutoFishing'] = false
+  ['AutoFishing'] = false,
+
+  ['RuneMake'] = false,
+  ['RuneSpellText'] = 'adori gran',
+  ['RuneMakeOpenContainer'] = true,
+  
+  ['AutoReplaceWeapon'] = false,
+  ['AutoReplaceWeaponSelect'] = 'Left Hand',
+  ['ItemToReplace'] = 3277,
+
+  ['MagicTrain'] = false,
+  ['MagicTrainSpellText'] = 'utani hur'
 }
 
 potions = {

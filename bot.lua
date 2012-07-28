@@ -122,7 +122,7 @@ function Bot.changeOption(key, status, loading)
         tab = pnProtection
       elseif pnAfk:getChildById(key) ~= nil then
         tab = pnAfk
-      elseif pnAfk.getCreatureListUI():getChildById(key) ~= nil then
+      elseif pnAfk.getCreatureListUI().getChildById(key) ~= nil then
         tab = pnAfk.getCreatureListUI()
       end
 

@@ -70,4 +70,123 @@ Panel
     anchors.right: parent.right
     anchors.top: prev.top
     width: 90
-    
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+  
+  BotOptionCheckBox
+    id: RuneMake
+    text: Rune Maker
+    tooltip: Automatically make runes.
+    anchors.left: parent.left
+    anchors.top: prev.top
+    width: 180
+    margin-top: 10
+
+  Label
+    id: RuneSpellLabel
+    width: 100
+    text: Rune Spell Text
+    anchors.right: parent.right
+    anchors.top: prev.top
+
+  BotOptionLineEdit
+    id: RuneSpellText
+    anchors.left: RuneSpellLabel.left
+    anchors.right: RuneSpellLabel.right
+    anchors.top: RuneSpellLabel.bottom
+    margin-top: 2
+
+  BotOptionCheckBox
+    id: RuneMakeOpenContainer
+    text: Check open containers
+    !tooltip: tr('Check if there is a blank rune in an open container\nin order to avoid saying the spell words repetitively\nwithout the magic item.')
+    anchors.left: parent.left
+    anchors.top: prev.top
+    width: 180
+    margin-top: 5
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+
+  BotOptionCheckBox
+    id: AutoReplaceWeapon
+    text: Auto Replace Weapon
+    tooltip: Automatically "refill" used throwing weapons (container of replacing items must be open).
+    anchors.left: parent.left
+    anchors.top: prev.top
+    width: 180
+    margin-top: 10
+
+  ComboBox
+    id: AutoReplaceWeaponSelect
+    anchors.right: parent.right
+    anchors.top: AutoReplaceWeapon.top
+    width: 100
+    &option: g_settings.get('AutoEatSelect')
+    @onOptionChange: Bot.changeOption(self:getId(), self:getText())
+    options:
+      - Left Hand
+      - Right Hand
+
+  Label
+    id: ItemToReplaceLabel
+    width: 120
+    text: Item to replace with
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 20
+    margin-left: 18 
+
+  Item
+    id: ItemToReplace
+    anchors.left: prev.right
+    anchors.top: prev.top
+    margin-top: -10
+    margin-left: 10
+    virtual: true
+
+  Button
+    id: SelectReplaceItem
+    !text: tr('Select\nitem')
+    width: 64
+    height: 34
+    anchors.left: prev.right
+    anchors.top: prev.top
+    margin-left: 10
+    @onClick: AfkModule.startChooseReplaceItem()
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+
+  BotOptionCheckBox
+    id: MagicTrain
+    text: Magic Training
+    tooltip: Trains magic level (use a spell whenever mana is full).
+    anchors.left: parent.left
+    anchors.top: prev.top
+    width: 180
+    margin-top: 10
+
+  Label
+    id: MagicTrainSpell
+    width: 100
+    text: Spell to use
+    anchors.right: parent.right
+    anchors.top: prev.top
+
+  BotOptionLineEdit
+    id: MagicTrainSpellText
+    anchors.left: MagicTrainSpell.left
+    anchors.right: MagicTrainSpell.right
+    anchors.top: MagicTrainSpell.bottom
+    margin-top: 2
