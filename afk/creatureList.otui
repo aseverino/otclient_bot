@@ -40,7 +40,7 @@ MainWindow
 
   Label
     id: BlackListLabel
-    text: Black List
+    !text: ('Black List')
     anchors.bottom: BlackList.top
     anchors.left: BlackList.left
     anchors.right: BlackList.right
@@ -68,7 +68,7 @@ MainWindow
 
   Label
     id: WhiteListLabel
-    text: White List
+    !text: ('White List')
     anchors.bottom: WhiteList.top
     anchors.left: WhiteList.left
     anchors.right: WhiteList.right
@@ -77,7 +77,7 @@ MainWindow
 
   Button
     id: BlackListRemove
-    text: Remove Selected
+    !text: ('Remove Selected')
     width: 150
     anchors.left: BlackList.left
     anchors.top: BlackList.bottom
@@ -86,7 +86,7 @@ MainWindow
 
   Button
     id: WhiteListRemove
-    text: Remove Selected
+    !text: ('Remove Selected')
     width: 150
     anchors.left: WhiteList.left
     anchors.top: WhiteList.bottom
@@ -127,7 +127,7 @@ MainWindow
 
   Button
     id: AddBlack
-    text: Add to the Black List
+    !text: tr('Add to the Black List')
     width: 140
     anchors.right: prev.right
     anchors.top: Text1Label.bottom
@@ -146,7 +146,7 @@ MainWindow
 
   Button
     id: AddWhite
-    text: Add to the White List
+    !text: ('Add to the White List')
     width: 140
     anchors.right: AddBlack.right
     anchors.top: AddBlack.bottom
@@ -155,8 +155,8 @@ MainWindow
 
   CheckBox
     id: UseBlackList
-    text: Alert for black-listed creatures.
-    tooltip: Will alert only when black-listed creatures enter on your screen.
+    !text: ('Alert for black-listed creatures.')
+    !tooltip: ('Will alert only when black-listed creatures enter on your screen.')
     anchors.left: Text1Label.left
     anchors.top: AddWhite.bottom
     width: 200
@@ -167,7 +167,7 @@ MainWindow
   CheckBox
     id: UseWhiteList
     !text: tr('Alert for non white-listed\ncreatures.')
-    tooltip: Will alert whenever a creature which is not on the white list appears.
+    !tooltip: tr('Will alert whenever a creature which is not on the white list appears.')
     anchors.left: Text1Label.left
     anchors.top: UseBlackList.bottom
     width: 200

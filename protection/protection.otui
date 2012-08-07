@@ -2,38 +2,39 @@ Panel
 
   BotOptionCheckBox
     id: AutoHeal
-    text: Auto Heal
-    tooltip: Heal your character automatically
+    !text: tr('Auto Heal')
+    !tooltip: tr('Heal your character automatically.')
     anchors.left: parent.left
     anchors.top: parent.top
-    width: 60
+    width: 180
 
   Label
     id: HealthSpellLabel
-    width: 100
-    text: Spell Text
+    width: 120
+    !text: tr('Spell text:')
     anchors.left: prev.left
     anchors.top: prev.bottom
     margin-top: 5
 
   BotOptionLineEdit
     id: HealSpellText
-    anchors.left: HealthSpellLabel.left
+    width: 100
+    anchors.left: parent.left
     anchors.right: HealthSpellLabel.right
     anchors.top: HealthSpellLabel.bottom
     margin-top: 2
 
   Label
     id: HealthLabel
-    text: On health lower than
-    anchors.left: HealthSpellLabel.right
+    !text: tr('On health lower than:')
+    anchors.right: parent.right
     anchors.top: HealthSpellLabel.top
     margin-left: 18
 
   BotOptionLineEdit
     id: HealthText
-    anchors.left: HealthLabel.left
-    anchors.right: HealthLabel.right
+    width: 120
+    anchors.right: parent.right
     anchors.top: HealthLabel.bottom
     margin-top: 2
 
@@ -45,11 +46,10 @@ Panel
 
   BotOptionCheckBox
     id: AutoHealthItem
-    text: Health Item
-    tooltip: Automatically use health items/potions on self
-    anchors.left: AutoHeal.left
+    width: 100
+    !text: tr('Health Item')
+    !tooltip: tr('Automatically use health items/potions on self.')
     anchors.top: prev.bottom
-    width: 70
     margin-top: 10
 
   Item
@@ -62,7 +62,7 @@ Panel
   Button
     id: SelectHealthItem
     !text: tr('Select\nitem')
-    width: 64
+    width: 70
     height: 34
     anchors.left: prev.right
     anchors.top: prev.top
@@ -71,24 +71,24 @@ Panel
 
   Label
     id: ItemHealthLabel
-    text: On health lower than
+    !text: tr('On health lower than:')
     anchors.top: CurrentHealthItem.top
     anchors.right: HealthLabel.right
 
   BotOptionLineEdit
     id: ItemHealthText
-    anchors.left: ItemHealthLabel.left
+    width: 120
     anchors.right: ItemHealthLabel.right
     anchors.top: ItemHealthLabel.bottom
     margin-top: 2
 
   BotOptionCheckBox
     id: AutoManaItem
-    text: Mana Item
-    tooltip: Automatically use mana items/potions on self
+    width: 100
+    !text: tr('Mana Item')
+    !tooltip: tr('Automatically use mana items/potions on self.')
     anchors.left: AutoHeal.left
     anchors.top: prev.bottom
-    width: 65
     margin-top: 10
 
   Item
@@ -101,7 +101,7 @@ Panel
   Button
     id: SelectManaItem
     !text: tr('Select\nitem')
-    width: 64
+    width: 70
     height: 34
     anchors.left: prev.right
     anchors.top: prev.top
@@ -110,13 +110,13 @@ Panel
 
   Label
     id: ItemManaLabel
-    text: On mana lower than
+    !text: tr('On mana lower than:')
+    anchors.right: parent.right
     anchors.top: CurrentManaItem.top
-    anchors.left: ItemHealthText.left
-
+    
   BotOptionLineEdit
     id: ItemManaText
-    anchors.left: ItemManaLabel.left
+    width: 120
     anchors.right: ItemHealthLabel.right
     anchors.top: ItemManaLabel.bottom
     margin-top: 2
@@ -129,11 +129,11 @@ Panel
 
   BotOptionCheckBox
     id: AutoHaste
-    text: Auto Haste
-    tooltip: Haste your character automatically
+    width: 140
+    !text: tr('Auto Haste')
+    !tooltip: tr('Haste your character automatically.')
     anchors.left: AutoHeal.left
     anchors.top: prev.bottom
-    width: 65
     margin-top: 10
 
   Label
@@ -146,24 +146,25 @@ Panel
 
   BotOptionLineEdit
     id: HasteSpellText
-    anchors.left: HasteSpellLabel.left
-    anchors.right: HasteSpellLabel.right
+    width: 120
+    anchors.left: parent.left
     anchors.top: HasteSpellLabel.bottom
     margin-top: 2
 
   Label
     id: HasteLabel
-    !text: tr('DO NOT haste when\nhealth lower than')
-    anchors.left: HasteSpellLabel.right
+    width: 140
+    !text: tr('DO NOT haste when\nhealth lower than:')
+    text-align: right
+    anchors.right: parent.right
     anchors.top: HasteSpellLabel.top
     margin-left: 18
     height: 30
-    width: 120
     margin-top: -16
 
   BotOptionLineEdit
     id: HasteText
-    anchors.left: HasteLabel.left
+    width: 120
     anchors.right: HasteLabel.right
     anchors.top: HasteLabel.bottom
     margin-top: 2
@@ -176,11 +177,11 @@ Panel
   
   BotOptionCheckBox
     id: AutoParalyzeHeal
-    text: Auto Paralyze Heal
-    tooltip: Automatically heal when paralized.
+    width: 140
+    !text: tr('Auto Paralyze Heal')
+    !tooltip: tr('Automatically cast a spell when paralized.')
     anchors.left: AutoHeal.left
     anchors.top: prev.bottom
-    width: 120
     margin-top: 10
 
   BotOptionLineEdit
@@ -188,7 +189,7 @@ Panel
     anchors.right: HasteLabel.right
     anchors.top: AutoParalyzeHeal.top
     width: 100
-    tooltip: Spell to use when paralyzed.
+    !tooltip: tr('Spell to use when paralyzed.')
 
   HorizontalSeparator
     anchors.left: parent.left
@@ -198,8 +199,8 @@ Panel
   
   BotOptionCheckBox
     id: AutoManaShield
-    text: Auto Magic Shield
-    tooltip: Automatically keeps character magic shielded.
+    !text: tr('Auto Magic Shield')
+    !tooltip: tr('Automatically keeps character magic shielded.')
     anchors.left: parent.left
     anchors.right: parent.right
     anchors.top: prev.bottom

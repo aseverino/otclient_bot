@@ -125,3 +125,56 @@ fishing = {
 }
 
 water = { 4599 }
+
+t = {
+  name = "pt",
+  translation = {
+    ["Kilouco\'s Bot"] = 'Bot do Kilouco',
+    ["Protection"] = 'Proteção',
+
+    ["Auto Heal"] = "Auto Recuperação",
+    ["Heal your character automatically."] = 'Recupera o personagem automaticamente.',
+    ["Spell text:"] = "Palavras da magia:",
+    ["Health Item"] = "Item de Vida",
+    ["Automatically use health items/potions on self."] = "Usar itens de vida em si mesmo automaticamente.",
+    ["Select\nitem"] = "Selecione\nitem",
+    ["On health lower than:"] = "Com vida menor que:",
+    ["Mana Item"] = "Item de Mana",
+    ["Automatically use mana items/potions on self."] = "Usar itens de mana em si mesmo automaticamente.",
+    ["On mana lower than:"] = "Com mana menor que:",
+    ["Auto Haste"] = "Haste automático",
+    ["Haste your character automatically."] = "Dá \"Haste\" automaticamente.",
+    ["DO NOT haste when\nhealth lower than:"] = "NÃO DAR haste em\nvida menor que:",
+    ["Auto Paralyze Heal"] = "Recuperar \"paralyze\"",
+    ["Automatically cast a spell when paralized."] = "Solta uma magia quando paralisado.",
+    ["Spell to use when paralyzed."] = "Magia para quando quando paralisado.",
+    ["Auto Magic Shield"] = "Magic Shield automático",
+    ["Automatically keeps character magic shielded."] = "Mantém o jogador com Magic Shield.",
+
+    ["Alert on creature appearance"] = "Alertar no aparecimento de criaturas.",
+    ["Play a sound alert when a creature appears"] = "Toca um alerta sonoro quando uma criatura aparece.",
+    ["Creature List"] = "Lista de criaturas",
+    ["Eat Food"] = "Comer",
+    ["Eat food automatically."] = "Come automaticamente.",
+    ["Anti-kick"] = "Anti-kick",
+    ["Character \"dances\" to avoid being kicked for being idle for too long."] = "Personagem do jogador \"dança\" para evitar de ser derrubado do jogo.",
+    ["Auto Fishing"] = "Pesca automática",
+    ["Player will be fishing as long as there are worms."] = "Jogador ficará pescando enquanto houver minhoca.",
+    ["Rune Maker"] = "Rune Maker",
+    ["Automatically make runes."] = "Faz runas automaticamente.",
+    ["Rune Spell Text"] = "Magia de runa",
+    ["Check open containers"] = "Verificar conteiners",
+    ["Check if there is a blank rune in an open container\nin order to avoid saying the spell worlds repetitively\nwithout the magic item."] = "Verifica se há \"Blank Rune\" visível em uma mochila aberta\npara evitar que o personagem fique repetindo\nas palavras mágicas sem o item.",
+    ["Auto Replace Weapons"] = "Repor armas",
+    ["Automatically \"refill\" used throwing weapons (container of replacing items must be open)."] = "Automaticamente repõe armas de jogar como as \"Spears\".",
+    ["Item to replace with"] = "Item a ser reposto",
+    ["Select\nitem"] = "Selecionar\nitem",
+    ["Magic Training"] = "Treinar nível mágico",
+    ["Trains magic level (use a spell whenever mana is full)."] = "Treina nível mágico (usa uma magia sempre que a mana está cheia).",
+    ["Spell to use"] = "Magia a ser usada",
+
+
+
+
+}}
+Locales.installLocale(t)

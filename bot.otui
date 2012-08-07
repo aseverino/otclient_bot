@@ -10,7 +10,7 @@ BotOptionTextList < TextList
 MainWindow
   id: botWindow
   !text: tr('Kilouco\'s Bot')
-  size: 286 500
+  size: 300 500
   
   @onEnter: Bot.hide()
   @onEscape: Bot.hide()
